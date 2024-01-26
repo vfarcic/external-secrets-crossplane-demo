@@ -35,18 +35,20 @@ Do you have those tools installed?
 # Crossplane #
 ##############
 
-if [[ "$HYPERSCALER" == "aws" ]]; then
+unset KUBECONFIG
 
-    aws eks update-kubeconfig --region us-east-1 \
-        --name a-team-cluster --kubeconfig kubeconfig.yaml
+# if [[ "$HYPERSCALER" == "aws" ]]; then
 
-    # Contour created a LoadBalancer Service which, in turn,
-    #   created an AWS ELB. We need to delete the ELB to avoid
-    #   deleting a cluster first and leaving the ELB behind.
-    kubectl --kubeconfig kubeconfig.yaml \
-        --namespace projectcontour delete service contour-envoy
+#     aws eks update-kubeconfig --region us-east-1 \
+#         --name a-team-cluster --kubeconfig kubeconfig.yaml
 
-fi
+#     # Contour created a LoadBalancer Service which, in turn,
+#     #   created an AWS ELB. We need to delete the ELB to avoid
+#     #   deleting a cluster first and leaving the ELB behind.
+#     kubectl --kubeconfig kubeconfig.yaml \
+#         --namespace projectcontour delete service contour-envoy
+
+# fi
 
 if [[ "$HYPERSCALER" == "google" ]]; then
 

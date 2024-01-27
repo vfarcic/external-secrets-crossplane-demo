@@ -37,18 +37,18 @@ Do you have those tools installed?
 
 unset KUBECONFIG
 
-# if [[ "$HYPERSCALER" == "aws" ]]; then
+if [[ "$HYPERSCALER" == "aws" ]]; then
 
-#     aws eks update-kubeconfig --region us-east-1 \
-#         --name a-team-cluster --kubeconfig kubeconfig.yaml
+    aws eks update-kubeconfig --region us-east-1 \
+        --name a-team-cluster --kubeconfig kubeconfig.yaml
 
-#     # Contour created a LoadBalancer Service which, in turn,
-#     #   created an AWS ELB. We need to delete the ELB to avoid
-#     #   deleting a cluster first and leaving the ELB behind.
-#     kubectl --kubeconfig kubeconfig.yaml \
-#         --namespace projectcontour delete service contour-envoy
+    # Contour created a LoadBalancer Service which, in turn,
+    #   created an AWS ELB. We need to delete the ELB to avoid
+    #   deleting a cluster first and leaving the ELB behind.
+    kubectl --kubeconfig kubeconfig.yaml \
+        --namespace projectcontour delete service contour-envoy
 
-# fi
+fi
 
 if [[ "$HYPERSCALER" == "google" ]]; then
 
@@ -74,7 +74,7 @@ elif [[ "$HYPERSCALER" == "aws" ]]; then
         | grep -v release | grep -v database | wc -l)
 
     while [ $COUNTER -ne 0 ]; do
-        echo "Waiting for all Crossplane managed resource to be deleted..."
+        echo "$COUNTER resources left to be deleted..."
         sleep 10
         COUNTER=$(kubectl get managed --no-headers | grep -v object \
             | grep -v release | grep -v database| wc -l)

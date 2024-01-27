@@ -20,18 +20,3 @@ spec:
       pushToStore: true
       pullToCluster: a-team-cluster
       pullToClusterNamespace: production
-    schemas:
-      - database: my-db
-        sql: |
-          create table videos (
-            id varchar(50) not null,
-            description text,
-            primary key (id)
-          );
-          create table comments (
-            id serial,
-            video_id varchar(50) not null,
-            description text not null,
-            primary key (id),
-            CONSTRAINT fk_videos FOREIGN KEY(video_id) REFERENCES videos(id)
-          );

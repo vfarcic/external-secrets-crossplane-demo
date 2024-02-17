@@ -96,12 +96,12 @@ kubectl apply \
 
 kubectl apply --filename crossplane-packages/helm-incluster.yaml
 
-echo "## Waiting for Crossplane Packages..." | gum format
+echo "## Waiting for Crossplane Packages (<= 30 min.)..." | gum format
 
 sleep 60
 
 kubectl wait --for=condition=healthy provider.pkg.crossplane.io \
-    --all --timeout=600s
+    --all --timeout=1800s
 
 if [[ "$HYPERSCALER" == "google" ]]; then
 
